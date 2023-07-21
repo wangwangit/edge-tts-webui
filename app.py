@@ -4,21 +4,31 @@ import asyncio
 import os
 # https://speech.platform.bing.com/consumer/speech/synthesize/readaloud/voices/list?trustedclienttoken=6A5AA1D4EAFF4E9FB37E23D68491D6F4
 SUPPORTED_VOICES = {
-    'Xiaoxiao-晓晓': 'zh-CN-XiaoxiaoNeural',
-    'Xiaoyi-晓伊': 'zh-CN-XiaoyiNeural',
-    'Yunjian-云健': 'zh-CN-YunjianNeural',
-    'Yunxi-云希': 'zh-CN-YunxiNeural',
-    'Yunxia-云夏': 'zh-CN-YunxiaNeural',
-    'Yunyang-云扬': 'zh-CN-YunyangNeural',
-    'liaoning-Xiaobei-晓北辽宁': 'zh-CN-liaoning-XiaobeiNeural',
-    'shaanxi-Xiaoni-陕西晓妮': 'zh-CN-shaanxi-XiaoniNeural'
+    # 这里只罗列了 en-US 和 zh-CN 的发音，其他语言的发音请参考上面的链接
+    'Female-AnaNeural': 'en-US-AnaNeural',
+    'Female-AriaNeural': 'en-US-AriaNeural',
+    'Male-ChristopherNeural': 'en-US-ChristopherNeural',
+    'Male-EricNeural': 'en-US-EricNeural',
+    'Male-GuyNeural': 'en-US-GuyNeural',
+    'Female-JennyNeural': 'en-US-JennyNeural',
+    'Female-MichelleNeural': 'en-US-MichelleNeural',
+    'Male-RogerNeural': 'en-US-RogerNeural',
+    'Male-SteffanNeural': 'en-US-SteffanNeural',
+    'Female-XiaoxiaoNeural': 'zh-CN-XiaoxiaoNeural',
+    'Female-XiaoyiNeural': 'zh-CN-XiaoyiNeural',
+    'Male-YunjianNeural': 'zh-CN-YunjianNeural',
+    'Male-YunxiNeural': 'zh-CN-YunxiNeural',
+    'Male-YunxiaNeural': 'zh-CN-YunxiaNeural',
+    'Male-YunyangNeural': 'zh-CN-YunyangNeural',
 }
 
 # 发音切换
 def changeVoice(voices):
     example = SUPPORTED_VOICES[voices]
-    example_file = os.path.join(os.path.dirname(__file__), "example/"+example+".wav")
-    return example_file
+    # example_file = os.path.join(os.path.dirname(__file__), "example/"+example+".wav")
+    # return example_file
+    # 以上两行给注释掉了，因为我没制作相关的音频。
+    return
 
 # 文本转语音
 async def textToSpeech(text, voices, rate, volume):
@@ -61,19 +71,19 @@ with gr.Blocks(css="style.css", title="文本转语音") as demo:
     """)
     with gr.Row():
         with gr.Column():
-            text = gr.TextArea(label="文本", elem_classes="text-area")
+            text = gr.TextArea(label="文本", elem_classes="text-area", row="15")
             btn = gr.Button("生成", elem_id="submit-btn")
         with gr.Column():
             voices = gr.Dropdown(choices=[
-                "Xiaoxiao-晓晓", "Xiaoyi-晓伊", "Yunjian-云健", "Yunxi-云希",
-                "Yunxia-云夏", "Yunyang-云扬", "liaoning-Xiaobei-晓北辽宁",
-                "shaanxi-Xiaoni-陕西晓妮"
+                # 'Female-AnaNeural', 'Female-AriaNeural', 'Male-ChristopherNeural', 'Male-EricNeural', 'Male-GuyNeural', 'Female-JennyNeural', 'Female-MichelleNeural', 'Male-RogerNeural', 'Male-SteffanNeural', 'Female-XiaoxiaoNeural', 'Female-XiaoyiNeural', 'Male-YunjianNeural', 'Male-YunxiNeural', 'Male-YunxiaNeural', 'Male-YunyangNeural'
+                # 制作英文课程，用这两个声音就够了，所以，把其它的给注释掉了。
+                'Male-GuyNeural', 'Male-YunxiNeural'
             ],
-                                 value="Xiaoxiao-晓晓",
+                                 value="Female-XiaoxiaoNeural",
                                  label="发音",
                                  info="请选择发音人",
                                  interactive=True)
-            
+
             example = gr.Audio(label="试听",
                               value="example/zh-CN-XiaoxiaoNeural.wav",
                               interactive=False,
@@ -87,7 +97,7 @@ with gr.Blocks(css="style.css", title="文本转语音") as demo:
                              label="语速增减",
                              info="加快或减慢语速",
                              interactive=True)
-            
+
             volume = gr.Slider(-100,
                                100,
                                step=1,
