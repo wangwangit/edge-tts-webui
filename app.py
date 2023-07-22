@@ -79,13 +79,13 @@ with gr.Blocks(css="style.css", title="文本转语音") as demo:
                 # 制作英文课程，用这两个声音就够了，所以，把其它的给注释掉了。
                 'Male-GuyNeural', 'Male-YunxiNeural'
             ],
-                                 value="Female-XiaoxiaoNeural",
+                                 value="Male-YunxiNeural",
                                  label="发音",
                                  info="请选择发音人",
                                  interactive=True)
 
             example = gr.Audio(label="试听",
-                              value="example/zh-CN-XiaoxiaoNeural.wav",
+                              value="example/zh-CN-YunxiNeural.wav",
                               interactive=False,
                               elem_classes="example")
 
